@@ -26,17 +26,15 @@ type transformedTodo struct {
 
 func init() {
 	var err error
-	db, err = gorm.Open("postgres", "host=localhost port=5432 user=postgres dbname=postgres password=uqee.com sslmode=disable")
+	db, err = gorm.Open("postgres", "host=localhost port=5432 user=postgres dbname=postgres password=test sslmode=disable")
 	if err != nil {
 		logs.Logger.Error(err)
 	}
 	db.AutoMigrate(&todoModel{})
 }
 
-//TODO : test with http requests, CI, code coverage
-func main() {
+func setupRouter() *gin.Engine {
 	router := gin.Default()
-
 	v1 := router.Group("api/v1/todos")
 	{
 		v1.POST("/", createTodo)
@@ -45,6 +43,22 @@ func main() {
 		v1.PUT("/:id", updateTodo)
 		v1.DELETE("/:id", deleteTodo)
 	}
+	return router
+}
+
+// TODO : test with http requests, CI, code coverage, database configuration
+func main() {
+	// router := gin.Default()
+
+	// v1 := router.Group("api/v1/todos")
+	// {
+	// 	v1.POST("/", createTodo)
+	// 	v1.GET("/", fetchAllTodo)
+	// 	v1.GET("/:id", fetchSingleTodo)
+	// 	v1.PUT("/:id", updateTodo)
+	// 	v1.DELETE("/:id", deleteTodo)
+	// }
+	router := setupRouter()
 	router.Run()
 }
 
@@ -52,7 +66,7 @@ func createTodo(c *gin.Context) {
 	title := c.PostForm("title")
 	if title == "" {
 		c.JSON(http.StatusNotFound, gin.H{
-			"status":  http.StatusCreated,
+			"status":  http.StatusNotFound,
 			"message": "title should not be empty.",
 		})
 		return

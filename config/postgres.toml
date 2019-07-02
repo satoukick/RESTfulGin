@@ -1,0 +1,7 @@
+[env]
+host = "localhost"
+port = 5432
+user = ""
+dbname = ""
+password = ""
+sslmode = "disable"
