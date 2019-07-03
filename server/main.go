@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/satoukick/webserver/config"
 	"github.com/satoukick/webserver/logs"
 )
 
@@ -25,8 +26,11 @@ type transformedTodo struct {
 }
 
 func init() {
+	config.Init()
+
 	var err error
-	db, err = gorm.Open("postgres", "host=localhost port=5432 user=postgres dbname=postgres password=test sslmode=disable")
+	pgconf := config.Conf.GetPGEnvString()
+	db, err = gorm.Open("postgres", pgconf)
 	if err != nil {
 		logs.Logger.Error(err)
 	}
