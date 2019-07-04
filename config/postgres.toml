@@ -1,6 +1,6 @@
-[env]
+[pgenv]
 host = "localhost"
-port = 5432
+port = "5432"
 user = ""
 dbname = ""
 password = ""
