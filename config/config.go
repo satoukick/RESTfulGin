@@ -3,7 +3,7 @@ package config
 import (
 	"flag"
 	"fmt"
-	"github.com/satoukick/webserver/logs"
+
 	"github.com/BurntSushi/toml"
 )
 

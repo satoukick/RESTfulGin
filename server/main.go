@@ -50,18 +50,8 @@ func setupRouter() *gin.Engine {
 	return router
 }
 
-// TODO : test with http requests, CI, code coverage, database configuration
+// TODO : CI, code coverage
 func main() {
-	// router := gin.Default()
-
-	// v1 := router.Group("api/v1/todos")
-	// {
-	// 	v1.POST("/", createTodo)
-	// 	v1.GET("/", fetchAllTodo)
-	// 	v1.GET("/:id", fetchSingleTodo)
-	// 	v1.PUT("/:id", updateTodo)
-	// 	v1.DELETE("/:id", deleteTodo)
-	// }
 	router := setupRouter()
 	router.Run()
 }

@@ -4,7 +4,7 @@ import "go.uber.org/zap"
 
 var Logger *zap.SugaredLogger
 
-// FIXME:
+// FIXME: log struct
 func init() {
 	l, _ := zap.NewDevelopment()
 	Logger = l.Sugar()

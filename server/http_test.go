@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TODO: write more test cases
 func TestFetchAllTodo(t *testing.T) {
 	r := setupRouter()
 	w := httptest.NewRecorder()
