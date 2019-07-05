@@ -14,3 +14,9 @@ services:
 
 before_script:
   - psql -c 'create database testdb;' -U postgres
+
+script:
+  - go test github.com/satoukick/webserver/server -race -coverprofile=coverage.txt -covermode=atomic
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash)
