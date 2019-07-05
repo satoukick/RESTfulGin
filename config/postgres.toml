@@ -1,7 +1,7 @@
 [pgenv]
 host = "localhost"
 port = "5432"
-user = ""
-dbname = ""
+user = "postgres"
+dbname = "testdb"
 password = ""
 sslmode = "disable"

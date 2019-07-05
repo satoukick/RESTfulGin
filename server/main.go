@@ -50,7 +50,7 @@ func setupRouter() *gin.Engine {
 	return router
 }
 
-// TODO : CI, code coverage
+// TODO : code coverage
 func main() {
 	router := setupRouter()
 	router.Run()
