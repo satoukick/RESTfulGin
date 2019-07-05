@@ -11,14 +11,6 @@ import (
 )
 
 // TODO: write more test cases
-func TestFetchAllTodo(t *testing.T) {
-	r := setupRouter()
-	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
-	r.ServeHTTP(w, req)
-
-	assert.Equal(t, 200, w.Code)
-}
 
 func TestCreateTodo(t *testing.T) {
 	r := setupRouter()
@@ -32,4 +24,12 @@ func TestCreateTodo(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusCreated, w.Code)
+}
+func TestFetchAllTodo(t *testing.T) {
+	r := setupRouter()
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
 }

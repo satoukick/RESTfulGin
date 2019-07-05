@@ -32,7 +32,7 @@ func init() {
 	pgconf := config.Conf.GetPGEnvString()
 	db, err = gorm.Open("postgres", pgconf)
 	if err != nil {
-		logs.Logger.Error(err)
+		logs.Logger.Fatal(err)
 	}
 	db.AutoMigrate(&todoModel{})
 }
@@ -50,7 +50,7 @@ func setupRouter() *gin.Engine {
 	return router
 }
 
-// TODO : code coverage
+// TODO : code coverage, do something with goroutine
 func main() {
 	router := setupRouter()
 	router.Run()
