@@ -50,7 +50,7 @@ func setupRouter() *gin.Engine {
 	return router
 }
 
-// TODO : code coverage, do something with goroutine, docker
+// TODO : do something with goroutine, docker
 func main() {
 	router := setupRouter()
 	router.Run()
