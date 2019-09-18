@@ -94,3 +94,11 @@ func TestDeleteTodo(t *testing.T) {
 	// r.ServeHTTP(w, req)
 	// assert.Equal(t, http.StatusNotFound, w.Code)
 }
+
+func TestDeleteNonExistTodo(t *testing.T) {
+	r := setupRouter()
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("DELETE", "api/v1/todos/3", nil)
+	r.ServeHTTP(w, req)
+	assert.Equal(t, http.StatusNotFound, w.Code)
+}
