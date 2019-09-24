@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/satoukick/webserver/config"
-	"github.com/satoukick/webserver/logs"
+	"github.com/satoukick/webserver/log"
 )
 
 var db *gorm.DB
@@ -32,7 +32,7 @@ func init() {
 	pgconf := config.Conf.GetPGEnvString()
 	db, err = gorm.Open("postgres", pgconf)
 	if err != nil {
-		logs.Logger.Fatal(err)
+		logs.Fatal(err)
 	}
 	db.AutoMigrate(&todoModel{})
 }
@@ -52,6 +52,7 @@ func setupRouter() *gin.Engine {
 
 // TODO : do something with goroutine, docker
 func main() {
+	defer logs.Sync()
 	router := setupRouter()
 	router.Run()
 }
