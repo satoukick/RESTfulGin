@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/satoukick/webserver/config"
-	"github.com/satoukick/webserver/log"
+	logs "github.com/satoukick/webserver/log"
 )
 
 var db *gorm.DB
@@ -54,7 +54,8 @@ func setupRouter() *gin.Engine {
 func main() {
 	defer logs.Sync()
 	router := setupRouter()
-	router.Run()
+	router.RunTLS(":8080", "../https/server.pem", "../https/server.key")
+	// router.Run()
 }
 
 func createTodo(c *gin.Context) {
