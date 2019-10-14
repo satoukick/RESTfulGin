@@ -1,1 +1,13 @@
-# [![Go Report Card](https://goreportcard.com/badge/github.com/satoukick/RESTfulGin)](https://goreportcard.com/report/github.com/satoukick/RESTfulGin)
+# GinServer (WIP)
+
+[![Build Status](https://travis-ci.org/satoukick/RESTfulGin.svg?branch=master)](https://travis-ci.org/satoukick/RESTfulGin)
+[![Go Report Card](https://goreportcard.com/badge/github.com/satoukick/RESTfulGin)](https://goreportcard.com/report/github.com/satoukick/RESTfulGin)
+[![codecov](https://codecov.io/gh/satoukick/RESTfulGin/branch/master/graph/badge.svg)](https://codecov.io/gh/satoukick/RESTfulGin)
+
+My Go experiment lab.
+
+## ToDo
+
+- Use Go-Micro
+- GraphQL
+- Docker
