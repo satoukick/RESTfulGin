@@ -6,7 +6,7 @@
 
 My Go experiment lab.
 
-## ToDo
+## To-do
 
 - Use Go-Micro
 - GraphQL
