@@ -3,3 +3,7 @@ go.sum
 *.exe
 *.key
 *.pem
+
+# generated protobuf files
+*.pb.go
+*.pb.micro.go
