@@ -22,7 +22,7 @@ type todoModel struct {
 type transformedTodo struct {
 	ID        uint   `json:"id"`
 	Title     string `json:"title"`
-	Completed bool   `json:"Completed"`
+	Completed bool   `json:"completed"`
 }
 
 func init() {

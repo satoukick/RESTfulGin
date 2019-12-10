@@ -1,6 +1,8 @@
-package server
+package main
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
@@ -20,4 +22,17 @@ func TestMock(t *testing.T) {
 	}
 
 	defer db.Close()
+
+	r := setupRouter()
+	ht := httptest.NewRecorder()
+	request, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
+	r.ServeHTTP(ht, request)
+	actual := ht.Body.Bytes()
+
+	rows := sqlmock.NewRows([]string{"id", "title", "completed"}).
+		AddRow(1, "record 1", true).
+		AddRow(2, "record 2", false)
+
+	mock.ExpectQuery("^SELECT (.+) FROM todo_models$")
+
 }
