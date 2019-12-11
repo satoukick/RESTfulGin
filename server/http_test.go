@@ -22,6 +22,7 @@ func TestFetchAllTodo(t *testing.T) {
 }
 
 func TestCreateTodo(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	data := url.Values{}
@@ -42,6 +43,7 @@ func TestCreateTodo(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, w2.Code)
 }
 func TestFetchAllTodo2(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
@@ -51,6 +53,7 @@ func TestFetchAllTodo2(t *testing.T) {
 }
 
 func TestFetchSingleTodo(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "api/v1/todos/1", nil)
@@ -65,6 +68,7 @@ func TestFetchSingleTodo(t *testing.T) {
 }
 
 func TestUpdateTodo(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	data := url.Values{}
@@ -84,6 +88,7 @@ func TestUpdateTodo(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, w2.Code)
 }
 func TestDeleteTodo(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("DELETE", "api/v1/todos/1", nil)
@@ -96,6 +101,7 @@ func TestDeleteTodo(t *testing.T) {
 }
 
 func TestDeleteNonExistTodo(t *testing.T) {
+	initPostgres()
 	r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("DELETE", "api/v1/todos/3", nil)

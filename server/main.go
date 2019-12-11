@@ -27,7 +27,10 @@ type transformedTodo struct {
 
 func init() {
 	config.Init()
+	initPostgres()
+}
 
+func initPostgres() {
 	var err error
 	pgconf := config.Conf.GetPGEnvString()
 	db, err = gorm.Open("postgres", pgconf)
