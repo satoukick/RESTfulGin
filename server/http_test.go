@@ -4,16 +4,29 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
 // TODO: write more test cases
 
+var (
+	r *gin.Engine
+)
+
+func TestMain(m *testing.M) {
+	r = setupRouter()
+	result := m.Run()
+	os.Exit(result)
+}
+
 func TestFetchAllTodo(t *testing.T) {
-	r := setupRouter()
+	// r := setupRouter()
+	initPostgres()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
 	r.ServeHTTP(w, req)
@@ -23,7 +36,7 @@ func TestFetchAllTodo(t *testing.T) {
 
 func TestCreateTodo(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	data := url.Values{}
 	data.Add("title", "test 1")
@@ -44,7 +57,7 @@ func TestCreateTodo(t *testing.T) {
 }
 func TestFetchAllTodo2(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v1/todos/", nil)
 	r.ServeHTTP(w, req)
@@ -54,7 +67,7 @@ func TestFetchAllTodo2(t *testing.T) {
 
 func TestFetchSingleTodo(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "api/v1/todos/1", nil)
 	r.ServeHTTP(w, req)
@@ -69,7 +82,7 @@ func TestFetchSingleTodo(t *testing.T) {
 
 func TestUpdateTodo(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	data := url.Values{}
 	data.Add("title", "updated unit test")
@@ -89,7 +102,7 @@ func TestUpdateTodo(t *testing.T) {
 }
 func TestDeleteTodo(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("DELETE", "api/v1/todos/1", nil)
 	r.ServeHTTP(w, req)
@@ -102,7 +115,7 @@ func TestDeleteTodo(t *testing.T) {
 
 func TestDeleteNonExistTodo(t *testing.T) {
 	initPostgres()
-	r := setupRouter()
+	// r := setupRouter()
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("DELETE", "api/v1/todos/3", nil)
 	r.ServeHTTP(w, req)
