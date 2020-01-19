@@ -9,21 +9,10 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/satoukick/webserver/config"
 	logs "github.com/satoukick/webserver/log"
+	"github.com/satoukick/webserver/model"
 )
 
 var db *gorm.DB
-
-type todoModel struct {
-	gorm.Model
-	Title     string `json:"title"`
-	Completed int    `json:"completed"`
-}
-
-type transformedTodo struct {
-	ID        uint   `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
-}
 
 func init() {
 	config.Init()
@@ -37,7 +26,7 @@ func initPostgres() {
 	if err != nil {
 		logs.Fatal(err)
 	}
-	db.AutoMigrate(&todoModel{})
+	db.AutoMigrate(&model.TodoModel{})
 }
 
 func setupRouter() *gin.Engine {
@@ -72,7 +61,7 @@ func createTodo(c *gin.Context) {
 	}
 
 	completed, _ := strconv.Atoi(c.PostForm("completed"))
-	todo := todoModel{
+	todo := model.TodoModel{
 		Title:     c.PostForm("title"),
 		Completed: completed,
 	}
@@ -86,8 +75,8 @@ func createTodo(c *gin.Context) {
 
 // fetcHallTodo fetches all records
 func fetchAllTodo(c *gin.Context) {
-	var todos []todoModel
-	var _todos []transformedTodo
+	var todos []model.TodoModel
+	var _todos []model.TransformedTodo
 
 	db.Find(&todos)
 	if len(todos) == 0 {
@@ -102,7 +91,7 @@ func fetchAllTodo(c *gin.Context) {
 		if item.Completed == 1 {
 			completed = true
 		}
-		new := transformedTodo{
+		new := model.TransformedTodo{
 			ID:        item.ID,
 			Title:     item.Title,
 			Completed: completed,
@@ -117,7 +106,7 @@ func fetchAllTodo(c *gin.Context) {
 
 // fetchSingleTodo fetches single records using ID
 func fetchSingleTodo(c *gin.Context) {
-	todo := todoModel{}
+	todo := model.TodoModel{}
 	todoID := c.Param("id")
 
 	db.First(&todo, todoID)
@@ -131,7 +120,7 @@ func fetchSingleTodo(c *gin.Context) {
 	}
 
 	completed := todo.Completed == 1
-	trans := transformedTodo{
+	trans := model.TransformedTodo{
 		ID:        todo.ID,
 		Title:     todo.Title,
 		Completed: completed,
@@ -143,7 +132,7 @@ func fetchSingleTodo(c *gin.Context) {
 }
 
 func updateTodo(c *gin.Context) {
-	var todo todoModel
+	var todo model.TodoModel
 	todoID := c.Param("id")
 
 	db.First(&todo, todoID)
@@ -158,7 +147,7 @@ func updateTodo(c *gin.Context) {
 
 	completed, _ := strconv.Atoi(c.PostForm("completed"))
 	title := c.PostForm("title")
-	db.Model(&todo).Updates(todoModel{Completed: completed, Title: title})
+	db.Model(&todo).Updates(model.TodoModel{Completed: completed, Title: title})
 	c.JSON(http.StatusOK, gin.H{
 		"status":  http.StatusOK,
 		"message": "Todo updated successfully!",
@@ -166,7 +155,7 @@ func updateTodo(c *gin.Context) {
 }
 
 func deleteTodo(c *gin.Context) {
-	var todo todoModel
+	var todo model.TodoModel
 	todoID := c.Param("id")
 
 	db.First(&todo, todoID)

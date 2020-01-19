@@ -9,6 +9,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/jinzhu/gorm"
 	logs "github.com/satoukick/webserver/log"
+	"github.com/satoukick/webserver/model"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,11 +54,11 @@ func TestMockFetchAll(t *testing.T) {
 	}
 
 	expected := struct {
-		Data   []transformedTodo `json:"data"`
-		Status int               `json:"status"`
+		Data   []model.TransformedTodo `json:"data"`
+		Status int                     `json:"status"`
 	}{
 		Status: http.StatusOK,
-		Data: []transformedTodo{
+		Data: []model.TransformedTodo{
 			{ID: 1, Title: "record 1", Completed: true},
 			{ID: 2, Title: "record 2", Completed: true},
 		},
