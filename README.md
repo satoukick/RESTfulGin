@@ -11,3 +11,5 @@ My Go experiment lab.
 - Use Go-Micro
 - GraphQL
 - Docker
+- JWT
+- update travis script
