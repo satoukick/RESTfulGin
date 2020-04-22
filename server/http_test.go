@@ -19,6 +19,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	gin.SetMode(gin.TestMode)
 	r = setupRouter()
 	result := m.Run()
 	os.Exit(result)
